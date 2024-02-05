@@ -409,7 +409,6 @@ class Model:
 
     def wave_to_notes_basic(self)-> (list, int):
        # self.__sinusoidal_estimation(audio_signal, srate)
-       print("Calculate onsets")
        self.__calculate_onsets_and_f0_candidates(self.__audio_data, self.__sampling_rate, self.frame_length, self.hop_length)
        
        self.__notesroll = self.__onsets_to_notesroll(self.hop_length / self.__sampling_rate)
@@ -468,17 +467,6 @@ class Model:
             return np.array([duration])
                 
     def notesroll_to_music_sheet(self, output_directory: str = 'results', error: float = 0.05, precision: float = 0.2, meter=(4, 4)):
-        # notes_data = [(60, 'C4', 1000), (62, 'D4', 500), (64, 'E4', 2000), (65, 'F4', 1000)]  # (midi_number, name, duration_ms)
-        # s = stream.Stream()
-        #     # last_onset, last_offset, last_midi, last_note
-           
-        # for midi_number, name, duration_ms in notes_data:
-        #     n = note.Note(midi=midi_number)
-        #     n.duration.quarterLength = duration_ms / 1000.0 * 4  # Convert duration from ms to quarter lengths
-        #     s.append(n)
-        
-        # Show the music sheet
-        # s.show()
 
         container = abjad.Container()
         time_signature = abjad.Meter(meter)
@@ -536,33 +524,4 @@ class Model:
         # s.write('lily.pdf', fp='output.pdf')
         # lilypond.executable() -fpng -dresolution=300 -dpreview -o preview/ my_file.ly
 
-    def notesroll_to_music_sheet2(self, error: float = 0.05, precision: float = 0.2, time_signature=(4, 4)):
-        s = stream.Stream()
-        s.append(meter.TimeSignature(f'{time_signature[0]}/{time_signature[1]}'))
-
-        basic_meter_unit_time = 60/self.__bpm * (4/time_signature[1])
-
-        for note_info in self.__notesroll:
-            onset, offset, midi_number, name = note_info
-            name = name.replace("♯", "#")
-            relation = (offset - onset) * basic_meter_unit_time
-            if abs(relation - round(relation)) < error * np.round(relation):
-                note_length = 1 / (2**round(np.log2(relation)))
-            else:
-                numerator, denominator = self.__round_to_fraction_power_of_two(relation, precision)
-                note_length = numerator / (denominator * 4)
-            n = note.Note(name)
-            n.duration = duration.Duration(note_length)
-            s.append(n)
-
-
-    # def __round_to_fraction_power_of_two(self, n, precision=0.2):
-    #     i = 1
-    #     while True:
-    #         power_of_two = 2 ** i
-    #         closest_fraction = round(n * power_of_two) / power_of_two
-    #         if abs(n - closest_fraction) < precision:
-    #             frac = fractions.Fraction(closest_fraction).limit_denominator()
-    #             return frac.numerator, frac.denominator
-    #         i += 1
 

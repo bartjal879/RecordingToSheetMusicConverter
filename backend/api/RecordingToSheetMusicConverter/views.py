@@ -48,7 +48,6 @@ class audio_converter(APIView):
             output_dir = 'results'
             for key, value in request.GET.items():
                 params[key] = value
-                print(key, value)
             # text = request.GET.get("text")
 
             self.model.initialize_audio_parameters(params.get('start_note'), params.get('end_note'), params.get('onset_method'))

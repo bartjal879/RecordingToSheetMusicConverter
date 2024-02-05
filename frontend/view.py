@@ -14,12 +14,12 @@ import requests
 st.write("""
 # Aplikacja do konwersji nagrania audio na zapis nutowy ✌
 """)
-st.write('Konwersja nagrania audio na zapis nutowy jest możliwa dzięki wykorzystaniu algorytmów przetwarzania sygnałów dźwiękowych. W tym przypadku wykorzystano algorytm FFT (Fast Fourier Transform).')
+st.write("Konwersja nagrania audio na zapis nutowy jest możliwa dzięki wykorzystaniu algorytmów przetwarzania sygnałów dźwiękowych. W tym przypadku do zagadnienia automatycznej transkrypcji muzyki wykorzystano algorytmy Viterbi'ego oraz pYin.")
 st.write("""
 # Recording to sheet music conversion application ✌
 """)
 
-st.write('Sentiment analysis is the interpretation and classification of emotions (positive, negative and neutral) within text data using text analysis techniques. Sentiment analysis tools allow businesses to identify customer sentiment toward products, brands or services in online feedback.')
+st.write('Conversion of audio recordings into musical notation is possible thanks to the utilization of audio signal processing algorithms. In this case, Viterbi and pYin algorithms have been used for the task of automatic music transcription.')
 # st.set_option('deprecation.showfileUploaderEncoding', False)
 
     
@@ -211,4 +211,5 @@ if uploaded_file is not None or selected_file is not None:
 
 
 st.sidebar.image('logo.jpg')
-st.sidebar.subheader("""Final year project at Computer Science course in Silesian University of Technology, Gliwice, Poland.""")
+st.sidebar.subheader("""Projekt dyplomowy realizowany na końcowym semestrze kierunku Informatyka na Politechnice Śląskiej, Wydział Automatyki, Elektorniki i Informatyki, Katowice, Polska.""")
+st.sidebar.subheader("""Final year project at Computer Science course in Silesian University of Technology, Faculty of Automation, Electronics and Computer Science, Katowice, Poland.""")
